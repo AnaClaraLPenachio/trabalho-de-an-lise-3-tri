@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Aluno | Eventos Escolares</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f7fb;
+            color: #1e293b;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: #173b70;
+            color: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 0.3px;
+        }
+
+        .logo span {
+            color: #7dd3fc;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #e2e8f0;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: #7dd3fc;
+        }
+
+        .perfil {
+            background-color: #ffffff;
+            color: #173b70;
+            border-radius: 20px;
+            padding: 9px 15px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* Conteúdo principal */
+        main {
+            width: 100%;
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 42px 24px;
+            flex: 1;
+        }
+
+        .boas-vindas {
+            margin-bottom: 34px;
+        }
+
+        .boas-vindas .etiqueta {
+            color: #2563eb;
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+        }
+
+        .boas-vindas h1 {
+            font-size: 32px;
+            margin-bottom: 12px;
+            color: #172554;
+        }
+
+        .boas-vindas p {
+            color: #64748b;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Resumo */
+        .resumo {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 42px;
+        }
+
+        .resumo-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 22px;
+            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.03);
+        }
+
+        .resumo-card .icone {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .resumo-card .numero {
+            font-size: 28px;
+            font-weight: bold;
+            color: #173b70;
+            margin-bottom: 6px;
+        }
+
+        .resumo-card p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* Lista de eventos */
+        .secao-titulo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+        }
+
+        .secao-titulo h2 {
+            font-size: 23px;
+            color: #172554;
+        }
+
+        .secao-titulo a {
+            text-decoration: none;
+            color: #2563eb;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .eventos {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .evento-card {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 5px 18px rgba(15, 23, 42, 0.04);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .evento-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+        }
+
+        .evento-banner {
+            min-height: 112px;
+            padding: 22px;
+            display: flex;
+            align-items: flex-end;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .banner-tecnologia {
+            background: linear-gradient(135deg, #2563eb, #0f172a);
+        }
+
+        .banner-carreira {
+            background: linear-gradient(135deg, #0f766e, #134e4a);
+        }
+
+        .banner-inovacao {
+            background: linear-gradient(135deg, #7c3aed, #312e81);
+        }
+
+        .banner-academico {
+            background: linear-gradient(135deg, #ea580c, #7c2d12);
+        }
+
+        .evento-conteudo {
+            padding: 22px;
+        }
+
+        .categoria {
+            display: inline-block;
+            background-color: #eff6ff;
+            color: #1d4ed8;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .evento-conteudo h3 {
+            color: #172554;
+            font-size: 19px;
+            margin-bottom: 12px;
+        }
+
+        .descricao {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        .evento-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 22px;
+            color: #475569;
+            font-size: 13px;
+        }
+
+        .evento-info p {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .evento-rodape {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding-top: 16px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .vagas {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .botao {
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            background-color: #2563eb;
+            color: white;
+            padding: 11px 17px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            white-space: nowrap;
+            transition: background-color 0.2s;
+        }
+
+        .botao:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #0f2344;
+            color: #cbd5e1;
+            text-align: center;
+            padding: 25px 20px;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        footer strong {
+            color: white;
+        }
+
+        /* Responsividade */
+        @media (max-width: 700px) {
+            header {
+                padding: 20px 5%;
+            }
+
+            nav {
+                gap: 14px;
+            }
+
+            main {
+                padding: 30px 18px;
+            }
+
+            .boas-vindas h1 {
+                font-size: 26px;
+            }
+
+            .resumo {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                margin-bottom: 32px;
+            }
+
+            .resumo-card {
+                padding: 18px;
+            }
+
+            .eventos {
+                grid-template-columns: 1fr;
+            }
+
+            .secao-titulo h2 {
+                font-size: 21px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">Eventos<span>Tech</span></div>
+
+        <nav aria-label="Navegação principal">
+            <a href="#inicio">Início</a>
+            <a href="#eventos">Eventos</a>
+            <a href="#inscricoes">Minhas inscrições</a>
+            <div class="perfil">Aluno</div>
+        </nav>
+    </header>
+
+    <main id="inicio">
+
+        <section class="boas-vindas">
+            <p class="etiqueta">Painel do aluno</p>
+            <h1>Olá, estudante! 👋</h1>
+            <p>
+                Explore os próximos eventos da escola, descubra novas oportunidades
+                e inscreva-se nas atividades que mais combinam com você.
+            </p>
+        </section>
+
+        <section class="resumo" aria-label="Resumo de atividades">
+            <article class="resumo-card">
+                <div class="icone">📅</div>
+                <div class="numero">08</div>
+                <p>Eventos disponíveis</p>
+            </article>
+
+            <article class="resumo-card">
+                <div class="icone">🎟️</div>
+                <div class="numero">02</div>
+                <p>Minhas inscrições</p>
+            </article>
+
+            <article class="resumo-card">
+                <div class="icone">🏆</div>
+                <div class="numero">03</div>
+                <p>Certificados disponíveis</p>
+            </article>
+        </section>
+
+        <section id="eventos">
+            <div class="secao-titulo">
+                <h2>Próximos Eventos</h2>
+                <a href="#eventos">Ver todos →</a>
+            </div>
+
+            <div class="eventos">
+
+                <article class="evento-card">
+                    <div class="evento-banner banner-tecnologia">
+                        💻 Tecnologia e desenvolvimento
+                    </div>
+
+                    <div class="evento-conteudo">
+                        <span class="categoria">Tecnologia</span>
+                        <h3>Workshop de Desenvolvimento Web</h3>
+
+                        <p class="descricao">
+                            Aprenda conceitos de HTML e CSS e desenvolva
+                            sua primeira página web na prática.
+                        </p>
+
+                        <div class="evento-info">
+                            <p>📅 22/10/2026</p>
+                            <p>🕒 19h às 21h</p>
+                            <p>📍 Laboratório de Informática</p>
+                        </div>
+
+                        <div class="evento-rodape">
+                            <span class="vagas">20 vagas restantes</span>
+                            <a class="botao" href="#inscricoes">
+                                Inscrever-se
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="evento-card">
+                    <div class="evento-banner banner-carreira">
+                        🚀 Mercado de trabalho
+                    </div>
+
+                    <div class="evento-conteudo">
+                        <span class="categoria">Carreira</span>
+                        <h3>Feira de Profissões</h3>
+
+                        <p class="descricao">
+                            Conheça diferentes áreas profissionais, converse
+                            com especialistas e descubra novas possibilidades.
+                        </p>
+
+                        <div class="evento-info">
+                            <p>📅 25/10/2026</p>
+                            <p>🕒 08h às 12h</p>
+                            <p>📍 Auditório da Escola</p>
+                        </div>
+
+                        <div class="evento-rodape">
+                            <span class="vagas">50 vagas restantes</span>
+                            <a class="botao" href="#inscricoes">
+                                Inscrever-se
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="evento-card">
+                    <div class="evento-banner banner-inovacao">
+                        💡 Criatividade e inovação
+                    </div>
+
+                    <div class="evento-conteudo">
+                        <span class="categoria">Inovação</span>
+                        <h3>Desafio de Inovação Tecnológica</h3>
+
+                        <p class="descricao">
+                            Participe de uma atividade colaborativa para
+                            criar soluções inovadoras para problemas reais.
+                        </p>
+
+                        <div class="evento-info">
+                            <p>📅 28/10/2026</p>
+                            <p>🕒 13h30 às 17h</p>
+                            <p>📍 Sala de Projetos</p>
+                        </div>
+
+                        <div class="evento-rodape">
+                            <span class="vagas">15 vagas restantes</span>
+                            <a class="botao" href="#inscricoes">
+                                Inscrever-se
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="evento-card">
+                    <div class="evento-banner banner-academico">
+                        📚 Conhecimento e pesquisa
+                    </div>
+
+                    <div class="evento-conteudo">
+                        <span class="categoria">Acadêmico</span>
+                        <h3>Mostra de Projetos Técnicos</h3>
+
+                        <p class="descricao">
+                            Conheça os projetos desenvolvidos pelos alunos
+                            e compartilhe experiências e conhecimentos.
+                        </p>
+
+                        <div class="evento-info">
+                            <p>📅 30/10/2026</p>
+                            <p>🕒 09h às 16h</p>
+                            <p>📍 Pátio principal</p>
+                        </div>
+
+                        <div class="evento-rodape">
+                            <span class="vagas">30 vagas restantes</span>
+                            <a class="botao" href="#inscricoes">
+                                Inscrever-se
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section id="inscricoes" style="margin-top: 35px;">
+            <p style="color: #64748b; font-size: 13px; line-height: 1.7;">
+                Consulte a secretaria para verificar suas inscrições,
+                confirmar sua participação e acessar seus certificados.
+            </p>
+        </section>
+
+    </main>
+
+    <footer>
+        <strong>EventosTech</strong> — Sistema de Gestão de Eventos Escolares
+        <br>
+        © 2026 — Escola Técnica. Todos os direitos reservados.
+        <br>
+        Secretaria Escolar | Organização, conhecimento e inovação.
+    </footer>
+
+</body>
+</html>
